@@ -20,8 +20,14 @@ export function delTask(req,res){
         res.status(404).send(error)
     })
 }
-export function editTask(req,res){
-    const {id}=req.params;
-    console.log(id);
-    res.end();
+
+export async function editTask(req, res) {
+    const { id } = req.params;
+    const { task } = req.body;
+    try {
+        await schema.updateOne({ _id: id },{task:task});
+         res.status(201).send("updated");
+    } catch (error) {
+        console.log(error);
+    }
 }

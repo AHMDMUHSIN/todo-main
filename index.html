@@ -69,7 +69,7 @@
 
     <script>
         async function getTodo(){
-            const task=await fetch("http://localhost:3010/api/gettask")
+            const task=await fetch("http://localhost:3004/api/gettask")
             // console.log(task);
             const data=await task.json();
             console.log(data);
@@ -92,7 +92,7 @@
         function addTask()
          {
            let task=data.value;
-           fetch("http://localhost:3005/api/addtask",{
+           fetch("http://localhost:3004/api/addtask",{
             method:"POST",
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify({task})
@@ -105,7 +105,7 @@
 
         function delTodo(id){
             console.log(id);
-            fetch(`http://localhost:3005/api/deltask/${id}`,{
+            fetch(`http://localhost:3004/api/deltask/${id}`,{
                 method:"DELETE"
             }).then((data)=>{
                 if(data.status==200){
@@ -123,16 +123,16 @@
         function editTodo(id) {
         let newTask = prompt("Enter the new task", "");
         if (newTask) {
-            fetch(`http://localhost:3005/api/edittask/${id}`, {
+            fetch(`http://localhost:3004/api/edittask/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ task: newTask })
             }).then((data) => {
-                if (data.status == 200) {
+                if (data.status == 201) {
                     alert("Edited");
                     data.value = newTask;
                 } else {
-                    alert("Error");
+                    alert("error");
                 }
                 getTodo();
             }).catch((error) => {
